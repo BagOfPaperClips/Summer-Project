@@ -13,10 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int moveState = 0;
     Animator myAnimator;
 
-    /*
-    public Vector2 camDef;
-    CameraMovement cm;
-    */
+    
 
     void Start()
     {
@@ -86,10 +83,8 @@ public class PlayerMovement : MonoBehaviour
             ))
         {
             moveState = 0;
-            /*
-            camDef = direction;
-            cameraDefualt(camDef);
-            */
+            
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -101,11 +96,6 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    /*
-    void cameraDefualt(Vector2 camDef)
-    {
-        
-        cm.transform.position = camDef;
-    }
-    */
+    
+    
 }
