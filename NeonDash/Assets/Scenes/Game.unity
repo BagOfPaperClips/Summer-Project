@@ -667,7 +667,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 5
   direction: {x: 0, y: 0}
+  rb: {fileID: 726612154}
   canMove: 1
+  dashSpeed: 10
+  dashDuration: 0.25
+  dashCooldown: 1
 --- !u!1 &611401869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,6 +1054,9 @@ MonoBehaviour:
   rb: {fileID: 726612154}
   canMove: 1
   moveState: 0
+  dashSpeed: 10
+  dashDuration: 0.25
+  dashCooldown: 1
 --- !u!50 &726612154
 Rigidbody2D:
   serializedVersion: 4

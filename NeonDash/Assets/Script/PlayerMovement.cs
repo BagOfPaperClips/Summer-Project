@@ -13,7 +13,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int moveState = 0;
     Animator myAnimator;
 
-    
+    [Header("Dash Settings")]
+    [SerializeField] float dashSpeed = 10f;
+    [SerializeField] float dashDuration = 1f;
+    [SerializeField] float dashCooldown = 1f;
+    private bool isDashing;
+    private bool canDash = true;
+
 
     void Start()
     {
@@ -27,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
     protected void handleMovement()
     {
+        if(isDashing)
+        {
+            return;
+        }
+
         if (!canMove) return;
         if (Input.GetKey(KeyCode.A))
         {
@@ -94,8 +105,25 @@ public class PlayerMovement : MonoBehaviour
 
         myAnimator.SetInteger("moveState", moveState);
 
+        // dash keybind
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+
     }
 
-    
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        rb.velocity = new Vector2(direction.x * dashSpeed, direction.y * dashSpeed);
+        yield return new WaitForSeconds(dashDuration);
+        rb.velocity = Vector2.zero;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
     
 }

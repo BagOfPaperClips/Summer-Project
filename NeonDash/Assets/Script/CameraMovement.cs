@@ -6,9 +6,18 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private Vector2 direction = Vector2.zero;
+    public Rigidbody2D rb;
     Vector2 movement;
 
     [SerializeField] private bool canMove = true;
+
+    [Header("Dash Settings")]
+    [SerializeField] float dashSpeed = 10f;
+    [SerializeField] float dashDuration = 1f;
+    [SerializeField] float dashCooldown = 1f;
+
+    private bool isDashing;
+    private bool canDash = true;
 
 
     private void Update()
@@ -18,6 +27,11 @@ public class CameraMovement : MonoBehaviour
 
     protected void handleMovement()
     {
+        if(isDashing)
+        {
+            return;
+        }
+
         if (!canMove) return;
         if (Input.GetKey(KeyCode.A))
         {
@@ -67,7 +81,24 @@ public class CameraMovement : MonoBehaviour
 
         }
 
+        // dash
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
+    }
 
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        rb.velocity = new Vector2(direction.x * dashSpeed, direction.y * dashSpeed);
+        yield return new WaitForSeconds(dashDuration);
+        rb.velocity = Vector2.zero;
+        isDashing = false;
+
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
     }
 
 }
