@@ -13,11 +13,12 @@ public class ItemSO : ScriptableObject
 
     [Header("Stats")]
     public int currentHealth;
+    public int maxHealth;
     public int movementSpeed;
     public int damage;
-    public int dashCooldown;
+    public bool dashCooldown;
     public int lootDrops;
-    public int specialAttack;
+    public bool specialAttack;
 
     [Header("For Temporary Items")]
     public float duration;
