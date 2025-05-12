@@ -10,6 +10,7 @@ public class ItemSO : ScriptableObject
     public Sprite icon;
 
     public bool isCurrency;
+    public int stackSize = 3;
 
     [Header("Stats")]
     public int currentHealth;
