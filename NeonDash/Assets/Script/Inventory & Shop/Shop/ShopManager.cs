@@ -1,26 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class ShopManager : MonoBehaviour
 {
     // allows everything shop-related to work, including populating the shop slots with items and running the buying and selling
-    public static event Action<ShopManager, bool> OnShopStateChanged; // shop manager sends out a message to any listeners so that it knows which shop has been opened or closed
-
-    [SerializeField] private List<ShopItems> shopItems; // list is dynamic, can add and remove items while the game is running
 
     [SerializeField] private ShopSlot[] shopSlots; // arrays can't have the number of items in it changed at runtime, but it's easy to use for groups that will stay the same size and editing in the inspector 
 
     [SerializeField] private InventoryManager inventoryManager;
 
-    private void Start()
-    {
-        PopulateShopItems();
-        OnShopStateChanged?.Invoke(this, true); // ?.Invoke checks if there are listeners before sending out the message
-    }
-
-    public void PopulateShopItems()
+    public void PopulateShopItems(List<ShopItems> shopItems)
     {
         for (int i = 0; i < shopItems.Count && i < shopSlots.Length; i++)
         {

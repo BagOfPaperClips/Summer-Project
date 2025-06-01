@@ -9,6 +9,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
     public ItemSO itemSO;
     public int quantity;
+    public bool activeShop;
 
     public Image itemImage;
     public TMP_Text quantityText;
@@ -18,6 +19,21 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         inventoryManager = GetComponentInParent<InventoryManager>();
+    }
+
+    private void OnEnable()
+    {
+        ShopKeeper.OnShopStateChanged += HandleShopStateChanged;
+    }
+
+    private void OnDisable()
+    {
+        ShopKeeper.OnShopStateChanged -= HandleShopStateChanged;
+    }
+
+    private void HandleShopStateChanged(ShopManager shopManager, bool isOpen)
+    {
+        activeShop = isOpen ? shopManager : null;
     }
 
     public void OnPointerClick(PointerEventData eventData)
